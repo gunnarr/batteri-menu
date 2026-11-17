@@ -5,11 +5,15 @@
 #   make run       build and open it
 #   make install   copy it to /Applications
 #   make screenshots  render docs/*.png from made-up devices
-#   make release   build, sign with a Developer ID and zip (see release.mk)
+#   make release   build, sign, notarize and zip (see release.mk)
 #   make clean
 #
-# A release needs your own signing identity. Put it in release.mk, which is not checked in:
+# A release needs your own signing identity and notary key. Put them in release.mk, which
+# is not checked in:
 #   SIGN_ID = Developer ID Application: Your Name (TEAMID)
+#   NOTARY_KEY = /path/to/AuthKey_XXXXXXXXXX.p8
+#   NOTARY_KEY_ID = XXXXXXXXXX
+#   NOTARY_ISSUER = xxxxxxxx-xxxx-xxxx-xxxx-xxxxxxxxxxxx
 
 APP = Batteri
 BUNDLE = build/$(APP).app
@@ -65,13 +69,21 @@ screenshots: app
 	$(BUNDLE)/Contents/MacOS/$(APP) --snapshots build/snapshots
 	cp build/snapshots/panel.png build/snapshots/panel-dark.png build/snapshots/sign-in.png build/snapshots/settings.png docs/
 
+# Signs with your Developer ID, has Apple notarize the app, staples the ticket and zips it.
+# release.mk must set SIGN_ID, NOTARY_KEY, NOTARY_KEY_ID and NOTARY_ISSUER.
 release:
-	@if [ "$(SIGN_ID)" = "-" ]; then echo "Set SIGN_ID in release.mk first."; exit 1; fi
+	@if [ "$(SIGN_ID)" = "-" ] || [ -z "$(NOTARY_KEY)" ]; then \
+	  echo "Set SIGN_ID, NOTARY_KEY, NOTARY_KEY_ID and NOTARY_ISSUER in release.mk first."; exit 1; fi
 	$(MAKE) app
-	cd build && ditto -c -k --keepParent $(APP).app $(APP)-$(VERSION).zip
-	@echo "Signed build: build/$(APP)-$(VERSION).zip – notarize it before sharing:"
-	@echo "  xcrun notarytool submit build/$(APP)-$(VERSION).zip --keychain-profile <profile> --wait"
-	@echo "  xcrun stapler staple $(BUNDLE)"
+	rm -f build/$(APP).zip
+	cd build && ditto -c -k --keepParent $(APP).app notarize.zip
+	xcrun notarytool submit build/notarize.zip --key "$(NOTARY_KEY)" --key-id "$(NOTARY_KEY_ID)" \
+	  --issuer "$(NOTARY_ISSUER)" --wait
+	xcrun stapler staple $(BUNDLE)
+	rm build/notarize.zip
+	cd build && ditto -c -k --keepParent $(APP).app $(APP).zip
+	spctl -a -vv $(BUNDLE)
+	@echo "Release build: build/$(APP).zip (version $(VERSION))"
 
 clean:
 	rm -rf build .build

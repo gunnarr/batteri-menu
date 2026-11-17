@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## 0.1.0 – 2026-11-17
 
 - First version: a menu bar item that lists every device on your Apple Account with its
   battery level, lowest first.

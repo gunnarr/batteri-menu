@@ -72,8 +72,8 @@ make run     # build Batteri.app with the engine inside, and open it
 ```
 
 Other targets: `make install` copies the app to /Applications, `make screenshots` renders
-the images in `docs/` from made-up devices, and `make release` builds a zip signed with your
-own Developer ID (set `SIGN_ID` in `release.mk`).
+the images in `docs/` from made-up devices, and `make release` builds a signed and notarized zip
+with your own Developer ID (see the top of the `Makefile`).
 
 The engine version that ships in the app is pinned in `engine.version`.
 
