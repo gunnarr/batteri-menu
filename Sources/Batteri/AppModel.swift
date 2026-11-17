@@ -93,6 +93,16 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             }
             return
         }
+        if CommandLine.arguments.contains("--check-feed") {
+            // Asks the update feed for the latest version and prints the answer.
+            Task { @MainActor in
+                Updater.shared.probeFeed { result in
+                    print(result)
+                    NSApp.terminate(nil)
+                }
+            }
+            return
+        }
         if CommandLine.arguments.contains("--check-settings") {
             // Opens Settings the way the menu does and reports whether a window came up.
             Task { @MainActor in
@@ -114,6 +124,7 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
                 model.showSignIn()
             }
             model.start()
+            Updater.shared.start()
         }
     }
 }

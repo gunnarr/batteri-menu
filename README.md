@@ -33,6 +33,9 @@ Requires macOS 14 or later on a Mac with Apple silicon.
 - **Keyboard, mouse and trackpad** connected to this Mac show their current level.
 - Devices that are switched off, or that report nothing, are listed as *Offline*.
 
+Batteri keeps itself up to date: it looks for a new version now and then and offers to
+install it.
+
 In Settings you can open Batteri at login, show the lowest level next to the menu bar icon,
 choose how often to refresh, and include the devices of your Family Sharing group.
 
@@ -42,7 +45,8 @@ choose how often to refresh, and include the devices of your Family Sharing grou
 - After signing in, a session is saved in `~/.config/batteri/` on your Mac, readable only by
   you. Anyone who can read those files can reach your iCloud account on the web, so treat the
   folder as a secret. *Settings → Sign Out* removes it.
-- Batteri talks to Apple and to nothing else. There are no analytics and no accounts.
+- Batteri talks to Apple, and to GitHub to look for new versions of itself. There are no
+  analytics and no accounts.
 - Checking the batteries can never start a new sign-in on its own.
 
 ## Limitations

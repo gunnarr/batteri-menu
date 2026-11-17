@@ -5,9 +5,22 @@ import SwiftUI
 struct PanelView: View {
     @ObservedObject var model: AppModel
     @ObservedObject var store: BatteryStore
+    @ObservedObject var updater = Updater.shared
 
     var body: some View {
         VStack(spacing: 0) {
+            if let version = updater.availableVersion {
+                Button {
+                    updater.checkForUpdates()
+                } label: {
+                    Label("Batteri \(version) is available", systemImage: "arrow.down.circle.fill")
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                }
+                .buttonStyle(.borderless)
+                .padding(.horizontal, 14)
+                .padding(.vertical, 8)
+                Divider()
+            }
             content
             Divider()
             footer
@@ -107,6 +120,10 @@ struct PanelView: View {
             Menu {
                 Button("Settings…") { model.showSettings() }
                     .keyboardShortcut(",")
+                if updater.isAvailable {
+                    Button("Check for Updates…") { updater.checkForUpdates() }
+                        .disabled(!updater.canCheck)
+                }
                 Divider()
                 Button("Quit Batteri") { NSApplication.shared.terminate(nil) }
                     .keyboardShortcut("q")

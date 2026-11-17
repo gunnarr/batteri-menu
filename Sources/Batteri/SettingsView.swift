@@ -5,6 +5,7 @@ import SwiftUI
 struct SettingsView: View {
     @ObservedObject var model: AppModel
     @ObservedObject var store: BatteryStore
+    @ObservedObject var updater = Updater.shared
 
     @AppStorage(Defaults.includeFamily) private var includeFamily = false
     @AppStorage(Defaults.showLevelInMenuBar) private var showLevel = false
@@ -56,6 +57,14 @@ struct SettingsView: View {
 
             Section {
                 LabeledContent("Version", value: version)
+                if updater.isAvailable {
+                    Toggle("Check for updates automatically", isOn: Binding(
+                        get: { updater.automaticallyChecks },
+                        set: { updater.automaticallyChecks = $0 }
+                    ))
+                    Button("Check for Updates…") { updater.checkForUpdates() }
+                        .disabled(!updater.canCheck)
+                }
                 Link("Batteri on GitHub", destination: URL(string: "https://github.com/gunnarr/batteri-menu")!)
             } footer: {
                 Text("Batteri is an independent project and is not affiliated with Apple. It relies on an unofficial iCloud interface that may stop working.")
