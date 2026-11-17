@@ -13,10 +13,6 @@ struct BatteriApp: App {
             MenuBarLabel(store: model.store)
         }
         .menuBarExtraStyle(.window)
-
-        Settings {
-            SettingsView(model: model, store: model.store)
-        }
     }
 }
 

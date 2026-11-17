@@ -8,3 +8,4 @@
 - Settings: open at login, lowest level in the menu bar, refresh interval, family devices,
   sign out.
 - The engine (the `batteri` command-line tool and its own Python) is bundled in the app.
+- Settings now opens from the menu, in front of other windows.

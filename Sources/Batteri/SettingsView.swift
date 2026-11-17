@@ -92,3 +92,32 @@ struct SettingsView: View {
         }
     }
 }
+
+/// The Settings window. A menu bar app has no main menu and is not the active app when its
+/// menu is clicked, so SwiftUI's own Settings scene does not reliably come to the front.
+/// Owning the window makes sure it opens, and opens in front.
+@MainActor
+final class SettingsWindow: NSObject, NSWindowDelegate {
+    static let shared = SettingsWindow()
+
+    private var window: NSWindow?
+
+    func show(model: AppModel) {
+        if window == nil {
+            let view = SettingsView(model: model, store: model.store)
+            let window = NSWindow(contentViewController: NSHostingController(rootView: view))
+            window.title = "Batteri Settings"
+            window.styleMask = [.titled, .closable]
+            window.isReleasedWhenClosed = false
+            window.delegate = self
+            window.center()
+            self.window = window
+        }
+        NSApp.activate(ignoringOtherApps: true)
+        window?.makeKeyAndOrderFront(nil)
+    }
+
+    func windowWillClose(_ notification: Notification) {
+        window = nil
+    }
+}

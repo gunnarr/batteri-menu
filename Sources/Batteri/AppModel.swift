@@ -70,6 +70,10 @@ final class AppModel: ObservableObject {
         store.reset()
     }
 
+    func showSettings() {
+        SettingsWindow.shared.show(model: self)
+    }
+
     func showSignIn() {
         guard let engine else { return }
         SignInWindow.shared.show(engine: engine) { [weak self] in
@@ -85,6 +89,18 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
             let directory = URL(fileURLWithPath: CommandLine.arguments[index + 1])
             Task { @MainActor in
                 await Snapshots.write(to: directory)
+                NSApp.terminate(nil)
+            }
+            return
+        }
+        if CommandLine.arguments.contains("--check-settings") {
+            // Opens Settings the way the menu does and reports whether a window came up.
+            Task { @MainActor in
+                AppModel.shared.showSettings()
+                try? await Task.sleep(for: .seconds(1))
+                let window = NSApp.windows.first { $0.title == "Batteri Settings" }
+                print("visible=\(window?.isVisible ?? false) key=\(window?.isKeyWindow ?? false) "
+                    + "active=\(NSApp.isActive) size=\(window?.frame.size ?? .zero)")
                 NSApp.terminate(nil)
             }
             return

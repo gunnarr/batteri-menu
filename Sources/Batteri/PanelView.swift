@@ -105,7 +105,7 @@ struct PanelView: View {
                 .disabled(store.phase == .engineMissing)
             }
             Menu {
-                SettingsLink { Text("Settings…") }
+                Button("Settings…") { model.showSettings() }
                     .keyboardShortcut(",")
                 Divider()
                 Button("Quit Batteri") { NSApplication.shared.terminate(nil) }
