@@ -117,11 +117,29 @@ final class AppDelegate: NSObject, NSApplicationDelegate {
         }
         Task { @MainActor in
             let model = AppModel.shared
-            await model.refresh()
             // A menu bar app has no window of its own, so a new user would see nothing
-            // happen. Greet them with the sign-in window the first time.
+            // happen. Greet them with the sign-in window, and do it right away: while the
+            // app is still being launched it is allowed to come to the front.
+            if model.appleID == nil {
+                model.showSignIn()
+            }
+            await model.refresh()
             if model.store.phase == .needsLogin {
                 model.showSignIn()
+            }
+            if CommandLine.arguments.contains("--check-first-launch") {
+                // Reports what a launch leads to, then quits. Run with BATTERI_HOME set to
+                // an empty folder to see what a new user gets.
+                try? await Task.sleep(for: .seconds(1))
+                let window = NSApp.windows.first { $0.isVisible && $0.title == "Batteri" }
+                let front = window.map { w in
+                    NSApp.orderedWindows.first { $0.isVisible } === w
+                } ?? false
+                print("phase=\(model.store.phase) devices=\(model.store.devices.count) "
+                    + "signInWindow=\(window != nil) key=\(window?.isKeyWindow ?? false) "
+                    + "front=\(front) active=\(NSApp.isActive)")
+                NSApp.terminate(nil)
+                return
             }
             model.start()
             Updater.shared.start()

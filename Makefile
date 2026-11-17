@@ -3,7 +3,7 @@
 #   make test      run the unit tests
 #   make app       build Batteri.app with the engine inside, signed for this Mac only
 #   make run       build and open it
-#   make install   copy it to /Applications
+#   make install   copy the built app to /Applications
 #   make screenshots  render docs/*.png from made-up devices
 #   make release   build, sign, notarize and zip (see release.mk)
 #   make clean
@@ -71,9 +71,11 @@ sign:
 run: app
 	open $(BUNDLE)
 
-install: app
+# Installs the app that is already built, so a notarized release build stays notarized.
+install:
+	@[ -d $(BUNDLE) ] || { echo "Build it first: make app (or make release)"; exit 1; }
 	rm -rf /Applications/$(APP).app
-	cp -R $(BUNDLE) /Applications/$(APP).app
+	ditto $(BUNDLE) /Applications/$(APP).app
 
 screenshots: app
 	rm -rf build/snapshots

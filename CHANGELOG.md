@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.2 – 2026-11-17
+
+- The sign-in window now appears as soon as Batteri is opened for the first time, instead of
+  a moment later.
+- The sign-in and Settings windows open in front of other apps.
+
 ## 0.1.1 – 2026-11-17
 
 - Batteri now updates itself. It checks for new versions automatically, and you can check

@@ -171,6 +171,17 @@ struct SignInView: View {
     }
 }
 
+extension NSWindow {
+    /// Shows the window in front of other apps. Batteri is usually not the active app when
+    /// it needs to show a window, and macOS may decline to activate it, so the window is
+    /// also ordered to the front on its own.
+    func bringToFront() {
+        NSApp.activate(ignoringOtherApps: true)
+        makeKeyAndOrderFront(nil)
+        orderFrontRegardless()
+    }
+}
+
 /// The sign-in window. Built with AppKit so it can be shown at launch, which a menu bar
 /// app cannot do with a SwiftUI scene alone.
 @MainActor
@@ -182,8 +193,7 @@ final class SignInWindow: NSObject, NSWindowDelegate {
 
     func show(engine: EngineCommand, onSignedIn: @escaping () -> Void) {
         if let window {
-            NSApp.activate(ignoringOtherApps: true)
-            window.makeKeyAndOrderFront(nil)
+            window.bringToFront()
             return
         }
         let model = SignInModel(engine: engine, appleID: Account.standard().appleID) { [weak self] in
@@ -199,8 +209,7 @@ final class SignInWindow: NSObject, NSWindowDelegate {
         window.center()
         self.window = window
         self.model = model
-        NSApp.activate(ignoringOtherApps: true)
-        window.makeKeyAndOrderFront(nil)
+        window.bringToFront()
     }
 
     private func close() {

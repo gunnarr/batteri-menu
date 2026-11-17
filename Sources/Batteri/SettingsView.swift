@@ -122,8 +122,7 @@ final class SettingsWindow: NSObject, NSWindowDelegate {
             window.center()
             self.window = window
         }
-        NSApp.activate(ignoringOtherApps: true)
-        window?.makeKeyAndOrderFront(nil)
+        window?.bringToFront()
     }
 
     func windowWillClose(_ notification: Notification) {
