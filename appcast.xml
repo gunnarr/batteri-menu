@@ -3,6 +3,21 @@
     <channel>
         <title>Batteri</title>
         <item>
+            <title>0.1.2</title>
+            <pubDate>Tue, 17 Nov 2026 14:52:30 +0100</pubDate>
+            <link>https://github.com/gunnarr/batteri-menu</link>
+            <sparkle:version>3</sparkle:version>
+            <sparkle:shortVersionString>0.1.2</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<ul>
+<li>The sign-in window now appears as soon as Batteri is opened for the first time, instead of a moment later.</li>
+<li>The sign-in and Settings windows open in front of other apps.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/gunnarr/batteri-menu/releases/download/v0.1.2/Batteri.zip" length="35166013" type="application/octet-stream" sparkle:edSignature="D8iyx+mbpsG37eqNiU4C1lGQ+bDzTm7SuthAlEL/2yxn5rN5dmXapj8LUXumbz4TyZxqzojpUI29CVQcjbtqDw=="/>
+        </item>
+        <item>
             <title>0.1.1</title>
             <pubDate>Tue, 17 Nov 2026 14:39:08 +0100</pubDate>
             <link>https://github.com/gunnarr/batteri-menu</link>
