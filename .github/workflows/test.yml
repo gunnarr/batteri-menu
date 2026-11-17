@@ -1,0 +1,21 @@
+# Unit tests on every pull request and push to main. The job "Tester" is the required
+# check (nytt-repo batteri-menu --krav-check Tester).
+name: Tester
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+
+concurrency:
+  group: tester-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  tester:
+    name: Tester
+    runs-on: macos-26
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v7
+      - run: swift test

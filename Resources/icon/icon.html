@@ -1,0 +1,46 @@
+<!doctype html>
+<html><head><meta charset="utf-8"><style>html,body{margin:0;background:transparent}</style></head>
+<body>
+<!-- macOS app icon: 824pt rounded square centred on a 1024 canvas, with a soft shadow.
+     Three battery bars at different levels: several devices, one glance. -->
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2b2f36"/>
+      <stop offset="1" stop-color="#15171b"/>
+    </linearGradient>
+    <linearGradient id="green" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#5ee27a"/><stop offset="1" stop-color="#30c552"/>
+    </linearGradient>
+    <linearGradient id="yellow" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ffd84d"/><stop offset="1" stop-color="#f5b800"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#ff7468"/><stop offset="1" stop-color="#f0443a"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="125%">
+      <feDropShadow dx="0" dy="12" stdDeviation="14" flood-color="#000" flood-opacity="0.32"/>
+    </filter>
+  </defs>
+  <rect x="100" y="100" width="824" height="824" rx="186" fill="url(#bg)" filter="url(#shadow)"/>
+  <rect x="101.5" y="101.5" width="821" height="821" rx="184.5" fill="none" stroke="#fff" stroke-opacity="0.10" stroke-width="3"/>
+  <g>
+    <!-- track, level, cap -->
+    <g transform="translate(232,286)">
+      <rect width="520" height="116" rx="34" fill="#fff" fill-opacity="0.12"/>
+      <rect x="14" y="14" width="492" height="88" rx="22" fill="url(#green)"/>
+      <rect x="532" y="34" width="26" height="48" rx="11" fill="#fff" fill-opacity="0.28"/>
+    </g>
+    <g transform="translate(232,454)">
+      <rect width="520" height="116" rx="34" fill="#fff" fill-opacity="0.12"/>
+      <rect x="14" y="14" width="280" height="88" rx="22" fill="url(#yellow)"/>
+      <rect x="532" y="34" width="26" height="48" rx="11" fill="#fff" fill-opacity="0.28"/>
+    </g>
+    <g transform="translate(232,622)">
+      <rect width="520" height="116" rx="34" fill="#fff" fill-opacity="0.12"/>
+      <rect x="14" y="14" width="96" height="88" rx="22" fill="url(#red)"/>
+      <rect x="532" y="34" width="26" height="48" rx="11" fill="#fff" fill-opacity="0.28"/>
+    </g>
+  </g>
+</svg>
+</body></html>

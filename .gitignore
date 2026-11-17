@@ -1,0 +1,14 @@
+.build/
+build/
+*.log
+.env
+.DS_Store
+
+# Your own signing identity for `make release`
+release.mk
+
+# Rendered from Resources/icon/icon.html by scripts/make-icon.sh
+Resources/icon/icon-1024.png
+
+# Project instructions for Claude – kept out of the public repo
+CLAUDE.md

@@ -1,0 +1,12 @@
+version: 2
+updates:
+  # The app has no Swift package dependencies; the engine is pinned in engine.version.
+  # Versions of the actions in .github/workflows
+  - package-ecosystem: "github-actions"
+    directory: "/"
+    schedule:
+      interval: "weekly"
+      day: "monday"
+    groups:
+      actions:
+        patterns: ["*"]
