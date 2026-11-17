@@ -1,0 +1,20 @@
+<?xml version="1.0" standalone="yes"?>
+<rss xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" version="2.0">
+    <channel>
+        <title>Batteri</title>
+        <item>
+            <title>0.1.1</title>
+            <pubDate>Tue, 17 Nov 2026 14:39:08 +0100</pubDate>
+            <link>https://github.com/gunnarr/batteri-menu</link>
+            <sparkle:version>2</sparkle:version>
+            <sparkle:shortVersionString>0.1.1</sparkle:shortVersionString>
+            <sparkle:minimumSystemVersion>14.0</sparkle:minimumSystemVersion>
+            <sparkle:hardwareRequirements>arm64</sparkle:hardwareRequirements>
+            <description><![CDATA[<ul>
+<li>Batteri now updates itself. It checks for new versions automatically, and you can check yourself with Check for Updates… in the menu. Turn automatic checks off in Settings.</li>
+</ul>
+]]></description>
+            <enclosure url="https://github.com/gunnarr/batteri-menu/releases/download/v0.1.1/Batteri.zip" length="35164566" type="application/octet-stream" sparkle:edSignature="4ZFWqeGEaIwI5C/O2y8rEeK9p0hCavIh62N4FMmf+0aMftz4jwvMG+0h40Jg52SFyTxe4dSoGZmBsJohIClGDQ=="/>
+        </item>
+    </channel>
+</rss>
